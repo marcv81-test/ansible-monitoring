@@ -1,0 +1,6 @@
+---
+
+- hosts: server
+  gather_facts: no
+  roles:
+  - influxdb

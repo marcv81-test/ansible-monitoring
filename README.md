@@ -1,4 +1,4 @@
 # Setup
 
     vagrant up
-    ansible -i environments/vagrant.py -m ping all
+    ansible-playbook -i environments/vagrant.py playbooks/site.yml
