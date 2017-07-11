@@ -1,5 +1,7 @@
 ---
 
-# Database admin
+# InfluxDB users
 influxdb_admin_user: admin
 influxdb_admin_password: admin
+influxdb_telegraf_user: telegraf
+influxdb_telegraf_password: telegraf

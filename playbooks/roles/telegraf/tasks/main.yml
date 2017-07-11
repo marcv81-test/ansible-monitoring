@@ -1,0 +1,28 @@
+---
+
+- name: Package is available
+  get_url:
+    url: https://dl.influxdata.com/telegraf/releases/telegraf_1.3.3-1_amd64.deb
+    dest: /root/telegraf_1.3.3-1_amd64.deb
+    checksum: sha256:a56307bd34207988bcd4b6b23f350cc912f14ca3ebf269e56ef410c3783a68f0
+
+- name: Package is installed
+  apt:
+    deb: /root/telegraf_1.3.3-1_amd64.deb
+
+- name: Configuration is installed
+  template:
+    src: telegraf.conf
+    dest: /etc/telegraf/telegraf.conf
+    owner: root
+    group: root
+    mode: 0644
+  notify: Restart Telegraf
+
+- meta: flush_handlers
+
+- name: Service is started and enabled
+  service:
+    name: telegraf
+    state: started
+    enabled: yes
