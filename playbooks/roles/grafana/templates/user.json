@@ -1,0 +1,7 @@
+{
+    "name":"{{ grafana_editor_user | capitalize }}",
+    "login":"{{ grafana_editor_user }}",
+    "password":"{{ grafana_editor_password }}",
+    "email":"{{ grafana_editor_user }}@localhost",
+    "isAdmin":false
+}

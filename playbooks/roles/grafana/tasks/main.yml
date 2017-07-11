@@ -1,0 +1,42 @@
+---
+
+- name: Package is available
+  get_url:
+    url: https://s3-us-west-2.amazonaws.com/grafana-releases/release/grafana_4.4.1_amd64.deb
+    dest: /root/grafana_4.4.1_amd64.deb
+    checksum: sha256:f11ed0ad94a63be108df903ea32a8c2f199bfb87e3c6de26ce3101d3167ed5dd
+
+- name: Package is installed
+  apt:
+    deb: /root/grafana_4.4.1_amd64.deb
+
+- name: Configuration is installed
+  template:
+    src: grafana.ini
+    dest: /etc/grafana/grafana.ini
+    owner: root
+    group: root
+    mode: 0644
+  notify: Reconfigure Grafana
+
+- name: API calls payload is available
+  template:
+    src: "{{item}}"
+    dest: /root/{{item}}
+    owner: root
+    group: root
+    mode: 0600
+  with_items:
+  - datasource.json
+  - organisation.json
+  - user.json
+  - role.json
+  notify: Reconfigure Grafana
+
+- meta: flush_handlers
+
+- name: Service is started and enabled
+  service:
+    name: grafana-server
+    state: started
+    enabled: yes

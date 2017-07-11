@@ -44,14 +44,16 @@
   wait_for:
     port: 8086
 
-- name: Telegraf database and user exist
+- name: Telegraf database and users exist
   command: >
     curl -X POST 'http://localhost:8086/query' --data-urlencode "q={{item}}"
     --user {{influxdb_admin_user}}:{{influxdb_admin_password}}
   with_items:
   - "CREATE DATABASE telegraf"
   - "CREATE USER {{influxdb_telegraf_user}} WITH PASSWORD '{{influxdb_telegraf_password}}'"
+  - "CREATE USER {{influxdb_grafana_user}} WITH PASSWORD '{{influxdb_grafana_password}}'"
   - "GRANT WRITE ON telegraf TO {{influxdb_telegraf_user}}"
+  - "GRANT READ ON telegraf TO {{influxdb_grafana_user}}"
   args:
     warn: no
   changed_when: false

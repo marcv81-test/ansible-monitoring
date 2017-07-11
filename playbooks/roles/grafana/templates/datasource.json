@@ -1,0 +1,11 @@
+{
+    "name":"Telegraf",
+    "type":"influxdb",
+    "url":"http://{{ hostvars[groups['server'][0]].ansible_ssh_host }}:8086/",
+    "user":"{{influxdb_grafana_user}}",
+    "password":"{{influxdb_grafana_password}}",
+    "database":"telegraf",
+    "access":"proxy",
+    "basicAuth":false,
+    "isDefault":true
+}

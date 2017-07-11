@@ -1,0 +1,4 @@
+---
+
+- name: Reconfigure Grafana
+  include: reset.yml

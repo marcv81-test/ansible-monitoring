@@ -4,6 +4,7 @@
   gather_facts: no
   roles:
   - influxdb
+  - grafana
 
 - hosts: client
   gather_facts: no

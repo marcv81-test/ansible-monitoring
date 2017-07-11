@@ -5,3 +5,11 @@ influxdb_admin_user: admin
 influxdb_admin_password: admin
 influxdb_telegraf_user: telegraf
 influxdb_telegraf_password: telegraf
+influxdb_grafana_user: grafana
+influxdb_grafana_password: grafana
+
+# Grafana users
+grafana_admin_user: admin
+grafana_admin_password: admin
+grafana_editor_user: grafana
+grafana_editor_password: grafana
