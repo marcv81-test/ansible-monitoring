@@ -19,8 +19,8 @@ inventory = { '_meta': { 'hostvars': {} } }
 # Add hosts
 for host, properties in environment['hosts'].iteritems():
     inventory['_meta']['hostvars'][host] = {
-        'ansible_ssh_user': 'vagrant',
-        'ansible_ssh_host': properties['ip'],
+        'ansible_user': 'vagrant',
+        'ansible_host': properties['ip'],
         'ansible_ssh_private_key_file': '.vagrant/machines/' + host + '/virtualbox/private_key',
         'ansible_ssh_common_args': '-o StrictHostKeyChecking=no',
         'ansible_become': 'yes',
