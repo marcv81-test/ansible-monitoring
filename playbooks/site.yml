@@ -15,7 +15,7 @@
   roles:
   - grafana
 
-- hosts: telegraf
+- hosts: all
   gather_facts: no
   roles:
   - telegraf
