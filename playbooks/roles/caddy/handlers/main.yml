@@ -1,0 +1,9 @@
+---
+
+- name: Restart Caddy
+  service:
+    name: caddy
+    state: restarted
+
+- name: Reload daemons
+  shell: systemctl daemon-reload

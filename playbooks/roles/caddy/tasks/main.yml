@@ -1,0 +1,48 @@
+---
+
+- name: Package is installed
+  shell: >
+    which caddy || curl https://getcaddy.com | bash
+  changed_when: False
+
+- name: Service is installed
+  template:
+    src: caddy.service
+    dest: /lib/systemd/system/caddy.service
+    owner: root
+    group: root
+    mode: 0644
+  notify: Reload daemons
+
+- meta: flush_handlers
+
+- name: Certificates directory exists
+  file:
+    path: /etc/ssl/caddy
+    state: directory
+    owner: root
+    group: root
+    mode: 0700
+
+- name: Configuration directory exists
+  file:
+    path: /etc/caddy
+    state: directory
+    owner: root
+    group: root
+    mode: 0755
+
+- name: Configuration is installed
+  template:
+    src: Caddyfile
+    dest: /etc/caddy/Caddyfile
+    owner: root
+    group: root
+    mode: 0644
+  notify: Restart Caddy
+
+- name: Service is started and enabled
+  service:
+    name: caddy
+    state: started
+    enabled: yes
