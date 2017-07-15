@@ -1,5 +1,10 @@
 ---
 
+- hosts: all
+  gather_facts: no
+  roles:
+  - base
+
 - hosts: vagrant
   gather_facts: no
   roles:
