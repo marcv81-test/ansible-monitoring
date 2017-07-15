@@ -1,0 +1,22 @@
+---
+
+- name: Any host can resolve any other
+  lineinfile:
+    dest: /etc/hosts
+    line: "{{ hostvars[item].ansible_host }} {{ hostvars[item].inventory_hostname }}"
+    state: present
+  with_items: "{{ groups.all }}"
+
+- name: Any host can resolve any InfluxDB host
+  lineinfile:
+    dest: /etc/hosts
+    line: "{{ hostvars[item].ansible_host }} influxdb.{{ hostvars[item].inventory_hostname }}"
+    state: present
+  with_items: "{{ groups.influxdb }}"
+
+- name: Any host can resolve any Grafana host
+  lineinfile:
+    dest: /etc/hosts
+    line: "{{ hostvars[item].ansible_host }} grafana.{{ hostvars[item].inventory_hostname }}"
+    state: present
+  with_items: "{{ groups.grafana }}"

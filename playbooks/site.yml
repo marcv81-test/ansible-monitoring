@@ -1,5 +1,10 @@
 ---
 
+- hosts: vagrant
+  gather_facts: no
+  roles:
+  - hosts
+
 - hosts: influxdb
   gather_facts: no
   roles:
