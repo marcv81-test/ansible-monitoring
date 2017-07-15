@@ -5,6 +5,7 @@
     url: https://dl.influxdata.com/telegraf/releases/telegraf_1.3.3-1_amd64.deb
     dest: /root/telegraf_1.3.3-1_amd64.deb
     checksum: sha256:a56307bd34207988bcd4b6b23f350cc912f14ca3ebf269e56ef410c3783a68f0
+    timeout: 600
 
 - name: Package is installed
   apt:
