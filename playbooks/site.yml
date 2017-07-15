@@ -8,11 +8,6 @@
 - hosts: influxdb
   gather_facts: no
   roles:
-  - influxdb
-
-- hosts: grafana
-  gather_facts: no
-  roles:
   - grafana
 
 - hosts: all

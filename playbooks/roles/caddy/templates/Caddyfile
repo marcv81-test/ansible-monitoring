@@ -4,9 +4,7 @@ https://influxdb.{{inventory_hostname}} {
     tls self_signed
     proxy / http://127.0.0.1:8086
 }
-{% endif %}
 
-{% if 'grafana' in group_names %}
 https://grafana.{{inventory_hostname}} {
     tls {{ caddy_email }}
     tls self_signed

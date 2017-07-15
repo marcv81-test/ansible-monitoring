@@ -1,7 +1,7 @@
 {
     "name":"Telegraf",
     "type":"influxdb",
-    "url":"https://influxdb.{{ hostvars[groups['influxdb'][0]].inventory_hostname }}/",
+    "url":"http://localhost:8086/",
     "user":"{{influxdb_grafana_user}}",
     "password":"{{influxdb_grafana_password}}",
     "database":"telegraf",
