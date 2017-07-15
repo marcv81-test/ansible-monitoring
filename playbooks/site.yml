@@ -1,12 +1,16 @@
 ---
 
-- hosts: server
+- hosts: influxdb
   gather_facts: no
   roles:
   - influxdb
+
+- hosts: grafana
+  gather_facts: no
+  roles:
   - grafana
 
-- hosts: client
+- hosts: telegraf
   gather_facts: no
   roles:
   - telegraf

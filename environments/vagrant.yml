@@ -1,24 +1,29 @@
 ---
 
 hosts:
-  server-01:
+  test-01:
     box: marcv81/xenial64
     ip: 192.168.56.101
     memory: 512
-  client-01:
+  test-02:
     box: marcv81/xenial64
     ip: 192.168.56.102
     memory: 512
-  client-02:
+  test-03:
     box: marcv81/xenial64
     ip: 192.168.56.103
     memory: 512
 
 groups:
-  server:
+  influxdb:
     hosts:
-    - server-01
-  client:
+    - test-01
+  grafana:
     hosts:
-    - client-01
-    - client-02
+    - test-01
+    - test-02
+  telegraf:
+    hosts:
+    - test-01
+    - test-02
+    - test-03
