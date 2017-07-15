@@ -1,9 +1,36 @@
 ---
 
-- name: Package is installed
-  shell: >
-    which caddy || curl https://getcaddy.com | bash
-  changed_when: False
+- name: Package is available
+  get_url:
+    url: https://github.com/mholt/caddy/releases/download/v0.10.4/caddy_v0.10.4_linux_amd64.tar.gz
+    dest: /root/caddy_v0.10.4_linux_amd64.tar.gz
+    checksum: sha256:eaf0be061c4f260eab6b181728457852afc9c53c12c0b6ce9dd130bb4c790917
+    timeout: 600
+
+- name: Installation directory exists
+  file:
+    path: /opt/caddy_v0.10.4
+    state: directory
+    owner: root
+    group: root
+    mode: 0755
+
+- name: Package is extracted
+  unarchive:
+    src: /root/caddy_v0.10.4_linux_amd64.tar.gz
+    dest: /opt/caddy_v0.10.4
+    copy: no
+    creates: /opt/caddy_v0.10.4/caddy
+    owner: root
+    group: root
+
+- name: Executable symbolic link exists
+  file:
+    src: /opt/caddy_v0.10.4/caddy
+    dest: /usr/local/bin/caddy
+    state: link
+    owner: root
+    group: root
 
 - name: Service is installed
   template:
