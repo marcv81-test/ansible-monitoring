@@ -11,6 +11,7 @@
 - name: Package is installed
   apt:
     deb: /root/influxdb_1.2.4_amd64.deb
+    state: present
 
 - name: Service is started and enabled
   service:

@@ -11,6 +11,7 @@
 - name: Package is installed
   apt:
     deb: /root/grafana_4.4.1_amd64.deb
+    state: present
 
 - name: Configuration is installed
   template:
