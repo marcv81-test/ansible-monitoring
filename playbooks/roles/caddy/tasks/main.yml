@@ -1,13 +1,5 @@
 ---
 
-- name: Package is available
-  copy:
-    src: caddy_v0.10.4_linux_amd64.tar.gz
-    dest: /root/caddy_v0.10.4_linux_amd64.tar.gz
-    owner: root
-    group: root
-    mode: 0644
-
 - name: Installation directory exists
   file:
     path: /opt/caddy_v0.10.4
@@ -18,9 +10,8 @@
 
 - name: Package is extracted
   unarchive:
-    src: /root/caddy_v0.10.4_linux_amd64.tar.gz
+    src: caddy_v0.10.4_linux_amd64.tar.gz
     dest: /opt/caddy_v0.10.4
-    copy: no
     creates: /opt/caddy_v0.10.4/caddy
     owner: root
     group: root
