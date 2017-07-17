@@ -1,11 +1,12 @@
 ---
 
 - name: Package is available
-  get_url:
-    url: https://dl.influxdata.com/telegraf/releases/telegraf_1.3.4-1_amd64.deb
+  copy:
+    src: telegraf_1.3.4-1_amd64.deb
     dest: /root/telegraf_1.3.4-1_amd64.deb
-    checksum: sha256:680375f0138ccbbc5331474ca18ed90e7b8e66177ce46e4978ae955562b4328f
-    timeout: 600
+    owner: root
+    group: root
+    mode: 0644
 
 - name: Package is installed
   apt:

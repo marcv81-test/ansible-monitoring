@@ -1,11 +1,12 @@
 ---
 
 - name: Package is available
-  get_url:
-    url: https://github.com/mholt/caddy/releases/download/v0.10.4/caddy_v0.10.4_linux_amd64.tar.gz
+  copy:
+    src: caddy_v0.10.4_linux_amd64.tar.gz
     dest: /root/caddy_v0.10.4_linux_amd64.tar.gz
-    checksum: sha256:eaf0be061c4f260eab6b181728457852afc9c53c12c0b6ce9dd130bb4c790917
-    timeout: 600
+    owner: root
+    group: root
+    mode: 0644
 
 - name: Installation directory exists
   file:
