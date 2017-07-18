@@ -4,9 +4,6 @@
   copy:
     src: influxdb_1.2.4_amd64.deb
     dest: /root/influxdb_1.2.4_amd64.deb
-    owner: root
-    group: root
-    mode: 0644
 
 - name: Package is installed
   apt:
@@ -17,8 +14,6 @@
   file:
     path: /root/influxdb-tasks
     state: directory
-    owner: root
-    group: root
     mode: 0700
 
 - name: Service is started and enabled
@@ -45,9 +40,6 @@
   template:
     src: influxdb.conf
     dest: /etc/influxdb/influxdb.conf
-    owner: root
-    group: root
-    mode: 0644
   notify: Restart InfluxDB
 
 - meta: flush_handlers

@@ -4,9 +4,6 @@
   copy:
     src: grafana_4.4.1_amd64.deb
     dest: /root/grafana_4.4.1_amd64.deb
-    owner: root
-    group: root
-    mode: 0644
 
 - name: Package is installed
   apt:
@@ -17,17 +14,12 @@
   template:
     src: grafana.ini
     dest: /etc/grafana/grafana.ini
-    owner: root
-    group: root
-    mode: 0644
   notify: Reconfigure Grafana
 
 - name: API calls payload is available
   template:
     src: "{{item}}"
     dest: /root/{{item}}
-    owner: root
-    group: root
     mode: 0600
   with_items:
   - datasource.json

@@ -4,33 +4,23 @@
   file:
     path: /opt/caddy_v0.10.4
     state: directory
-    owner: root
-    group: root
-    mode: 0755
 
 - name: Package is extracted
   unarchive:
     src: caddy_v0.10.4_linux_amd64.tar.gz
     dest: /opt/caddy_v0.10.4
     creates: /opt/caddy_v0.10.4/caddy
-    owner: root
-    group: root
 
 - name: Executable symbolic link exists
   file:
     src: /opt/caddy_v0.10.4/caddy
     dest: /usr/local/bin/caddy
     state: link
-    owner: root
-    group: root
 
 - name: Service is installed
   template:
     src: caddy.service
     dest: /lib/systemd/system/caddy.service
-    owner: root
-    group: root
-    mode: 0644
   notify: Reload daemons
 
 - meta: flush_handlers
@@ -39,25 +29,17 @@
   file:
     path: /etc/ssl/caddy
     state: directory
-    owner: root
-    group: root
     mode: 0700
 
 - name: Configuration directory exists
   file:
     path: /etc/caddy
     state: directory
-    owner: root
-    group: root
-    mode: 0755
 
 - name: Configuration is installed
   template:
     src: Caddyfile
     dest: /etc/caddy/Caddyfile
-    owner: root
-    group: root
-    mode: 0644
   notify: Restart Caddy
 
 - name: Service is started and enabled

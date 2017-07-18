@@ -4,9 +4,6 @@
   copy:
     src: telegraf_1.3.4-1_amd64.deb
     dest: /root/telegraf_1.3.4-1_amd64.deb
-    owner: root
-    group: root
-    mode: 0644
 
 - name: Package is installed
   apt:
@@ -17,9 +14,6 @@
   template:
     src: telegraf.conf
     dest: /etc/telegraf/telegraf.conf
-    owner: root
-    group: root
-    mode: 0644
   notify: Restart Telegraf
 
 - meta: flush_handlers
