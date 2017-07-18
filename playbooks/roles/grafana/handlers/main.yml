@@ -1,4 +1,4 @@
 ---
 
-- name: Reconfigure Grafana
+- name: Reset Grafana
   include: reset.yml

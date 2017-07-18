@@ -14,19 +14,29 @@
   template:
     src: grafana.ini
     dest: /etc/grafana/grafana.ini
-  notify: Reconfigure Grafana
+  notify: Reset Grafana
 
-- name: API calls payload is available
+- name: Directories for tasks exist
+  file:
+    path: "{{item}}"
+    state: directory
+    mode: 0700
+  with_items:
+  - /root/grafana-tasks
+  - /root/grafana-tasks/requests
+  - /root/grafana-tasks/status
+
+- name: Tasks requests are available
   template:
-    src: "{{item}}"
-    dest: /root/{{item}}
+    src: requests/{{item}}.json
+    dest: /root/grafana-tasks/requests/{{item}}.json
     mode: 0600
   with_items:
-  - datasource.json
-  - organisation.json
-  - user.json
-  - role.json
-  notify: Reconfigure Grafana
+  - datasource
+  - user-organisation
+  - user-account
+  - user-role
+  notify: Reset Grafana
 
 - meta: flush_handlers
 
@@ -35,3 +45,23 @@
     name: grafana-server
     state: started
     enabled: yes
+
+- name: Grafana is up
+  wait_for:
+    port: 3000
+
+- name: Datasource and users are configured
+  shell: >
+    curl
+    -X {{item.method}} http://localhost:3000/{{item.endpoint}}
+    --user '{{grafana_admin_user}}:{{grafana_admin_password}}'
+    --header 'Content-Type: application/json'
+    --data-binary @/root/grafana-tasks/requests/{{item.name}}.json
+    --fail && touch /root/grafana-tasks/status/{{item.name}}.done
+  args:
+    creates: /root/grafana-tasks/status/{{item.name}}.done
+  with_items:
+  - { name: datasource,        endpoint: api/datasources,    method: POST  }
+  - { name: user-organisation, endpoint: api/orgs/1,         method: PUT   }
+  - { name: user-account,      endpoint: api/admin/users,    method: POST  }
+  - { name: user-role,         endpoint: api/orgs/1/users/2, method: PATCH }
