@@ -42,6 +42,8 @@
     dest: /etc/caddy/Caddyfile
   notify: Restart Caddy
 
+- meta: flush_handlers
+
 - name: Service is started and enabled
   service:
     name: caddy
