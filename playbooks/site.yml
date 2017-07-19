@@ -10,10 +10,10 @@
   roles:
   - hosts
 
-- hosts: influxdb
+- hosts: monitor
   gather_facts: no
   roles:
-  - grafana
+  - monitor
 
 - hosts: all
   gather_facts: no

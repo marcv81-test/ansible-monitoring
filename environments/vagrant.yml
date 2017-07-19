@@ -11,6 +11,6 @@ hosts:
     memory: 512
 
 groups:
-  influxdb:
+  monitor:
     hosts:
     - test-01

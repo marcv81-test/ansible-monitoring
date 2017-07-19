@@ -7,9 +7,9 @@
     state: present
   with_items: "{{ groups.all }}"
 
-- name: Any host can resolve any InfluxDB host
+- name: Any host can resolve the monitor hosts
   lineinfile:
     dest: /etc/hosts
     line: "{{ hostvars[item].ansible_host }} influxdb.{{ hostvars[item].inventory_hostname }} grafana.{{ hostvars[item].inventory_hostname }}"
     state: present
-  with_items: "{{ groups.influxdb }}"
+  with_items: "{{ groups.monitor }}"

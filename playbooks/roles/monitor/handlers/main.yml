@@ -1,5 +1,8 @@
 ---
 
+- name: Reset Grafana
+  include: reset_grafana.yml
+
 - name: Restart InfluxDB
   service:
     name: influxdb

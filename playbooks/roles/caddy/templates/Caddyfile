@@ -1,4 +1,4 @@
-{% if 'influxdb' in group_names %}
+{% if 'monitor' in group_names %}
 https://influxdb.{{inventory_hostname}} {
     tls {{ caddy_email }}
     tls self_signed
