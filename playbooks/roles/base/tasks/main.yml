@@ -12,3 +12,7 @@
   with_items:
   - curl
   - vim
+
+- name: Hostname is set
+  hostname:
+    name: "{{inventory_hostname}}"
