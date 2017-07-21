@@ -29,6 +29,8 @@
   file:
     path: /etc/ssl/caddy
     state: directory
+    owner: www-data
+    group: www-data
     mode: 0700
 
 - name: Caddy configuration directory exists

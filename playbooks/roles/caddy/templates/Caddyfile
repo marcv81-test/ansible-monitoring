@@ -1,13 +1,17 @@
 {% if 'monitor' in group_names %}
 https://influxdb.{{inventory_hostname}} {
     tls {{ caddy_email }}
+{% if 'vagrant' in group_names %}
     tls self_signed
+{% endif %}
     proxy / http://127.0.0.1:8086
 }
 
 https://grafana.{{inventory_hostname}} {
     tls {{ caddy_email }}
+{% if 'vagrant' in group_names %}
     tls self_signed
+{% endif %}
     proxy / http://127.0.0.1:3000
 }
 {% endif %}
