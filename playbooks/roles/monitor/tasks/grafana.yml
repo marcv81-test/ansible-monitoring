@@ -37,6 +37,7 @@
   - user-organisation
   - user-account
   - user-role
+  - admin-password
   notify: Reset Grafana
 
 - meta: flush_handlers
@@ -55,15 +56,15 @@
   shell: >
     curl
     -X {{item.method}} http://localhost:3000/{{item.endpoint}}
-    --user '{{grafana_admin_user}}:{{grafana_admin_password}}'
-    --header 'Content-Type: application/json'
+    --user admin:admin --header 'Content-Type: application/json'
     --data-binary @/root/grafana-tasks/requests/{{item.name}}.json
     --fail && touch /root/grafana-tasks/status/{{item.name}}.done
   args:
     creates: /root/grafana-tasks/status/{{item.name}}.done
   with_items:
-  - { name: datasource,        endpoint: api/datasources,    method: POST  }
-  - { name: dashboard-host,    endpoint: api/dashboards/db,  method: POST  }
-  - { name: user-organisation, endpoint: api/orgs/1,         method: PUT   }
-  - { name: user-account,      endpoint: api/admin/users,    method: POST  }
-  - { name: user-role,         endpoint: api/orgs/1/users/2, method: PATCH }
+  - { name: datasource,        endpoint: api/datasources,            method: POST  }
+  - { name: dashboard-host,    endpoint: api/dashboards/db,          method: POST  }
+  - { name: user-organisation, endpoint: api/orgs/1,                 method: PUT   }
+  - { name: user-account,      endpoint: api/admin/users,            method: POST  }
+  - { name: user-role,         endpoint: api/orgs/1/users/2,         method: PATCH }
+  - { name: admin-password,    endpoint: api/admin/users/1/password, method: PUT   }

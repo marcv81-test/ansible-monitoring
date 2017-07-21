@@ -29,12 +29,15 @@
 - name: Admin user exists
   shell: >
     influx
-    -execute "{{item.query}}" && touch /root/influxdb-tasks/{{item.name}}.done
+    -execute {{item.query|quote}} && touch /root/influxdb-tasks/{{item.name}}.done
   args:
     creates: /root/influxdb-tasks/{{item.name}}.done
   with_items:
   - name: user-admin-create
-    query: "CREATE USER {{influxdb_admin_user}} WITH PASSWORD '{{influxdb_admin_password}}' WITH ALL PRIVILEGES"
+    query: >-
+      CREATE USER admin
+      WITH PASSWORD '{{ influxdb_admin_password | escape_influxdb }}'
+      WITH ALL PRIVILEGES
 
 - name: Configuration is installed
   template:
@@ -51,18 +54,18 @@
 - name: Telegraf database and users exist
   shell: >
     influx
-    -username "{{influxdb_admin_user}}" -password "{{influxdb_admin_password}}"
-    -execute "{{item.query}}" && touch /root/influxdb-tasks/{{item.name}}.done
+    -username admin -password {{influxdb_admin_password|quote}}
+    -execute {{item.query|quote}} && touch /root/influxdb-tasks/{{item.name}}.done
   args:
     creates: /root/influxdb-tasks/{{item.name}}.done
   with_items:
   - name: db-telegraf-create
-    query: "CREATE DATABASE telegraf"
+    query: CREATE DATABASE telegraf
   - name: user-telegraf-create
-    query: "CREATE USER {{influxdb_telegraf_user}} WITH PASSWORD '{{influxdb_telegraf_password}}'"
+    query: CREATE USER telegraf WITH PASSWORD '{{ influxdb_telegraf_password | escape_influxdb }}'
   - name: user-telegraf-grant
-    query: "GRANT WRITE ON telegraf TO {{influxdb_telegraf_user}}"
+    query: GRANT WRITE ON telegraf TO telegraf
   - name: user-grafana-create
-    query: "CREATE USER {{influxdb_grafana_user}} WITH PASSWORD '{{influxdb_grafana_password}}'"
+    query: CREATE USER grafana WITH PASSWORD '{{ influxdb_grafana_password | escape_influxdb }}'
   - name: user-grafana-grant
-    query: "GRANT READ ON telegraf TO {{influxdb_grafana_user}}"
+    query: GRANT READ ON telegraf TO grafana
