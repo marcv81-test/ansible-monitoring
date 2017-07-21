@@ -1,3 +1,5 @@
 /.vscode/
 /.vagrant/
+/environments/production
+/group_vars/production
 *.pyc
