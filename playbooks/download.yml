@@ -14,9 +14,9 @@
       sha256: f11ed0ad94a63be108df903ea32a8c2f199bfb87e3c6de26ce3101d3167ed5dd
       dest: playbooks/roles/monitor/files/grafana_4.4.1_amd64.deb
 
-    - url: https://dl.influxdata.com/influxdb/releases/influxdb_1.2.4_amd64.deb
-      sha256: 2fac8391e04aa1bec9151e8f0d8f18df030c866af2b4963ab7d86c6ddc172182
-      dest: playbooks/roles/monitor/files/influxdb_1.2.4_amd64.deb
+    - url: https://dl.influxdata.com/influxdb/releases/influxdb_1.3.1_amd64.deb
+      sha256: 958c95d10b2b9d798003e4231ce3faf389e54fe749b28ef7db86a8058661bef8
+      dest: playbooks/roles/monitor/files/influxdb_1.3.1_amd64.deb
 
     - url: https://dl.influxdata.com/telegraf/releases/telegraf_1.3.4-1_amd64.deb
       sha256: 680375f0138ccbbc5331474ca18ed90e7b8e66177ce46e4978ae955562b4328f

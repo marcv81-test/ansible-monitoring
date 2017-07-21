@@ -2,12 +2,12 @@
 
 - name: InfluxDB package is available
   copy:
-    src: influxdb_1.2.4_amd64.deb
-    dest: /root/influxdb_1.2.4_amd64.deb
+    src: influxdb_1.3.1_amd64.deb
+    dest: /root/influxdb_1.3.1_amd64.deb
 
 - name: InfluxDB is installed
   apt:
-    deb: /root/influxdb_1.2.4_amd64.deb
+    deb: /root/influxdb_1.3.1_amd64.deb
     state: present
 
 - name: InfluxDB directory for tasks status exists
