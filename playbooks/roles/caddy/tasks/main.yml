@@ -1,23 +1,23 @@
 ---
 
-- name: Installation directory exists
+- name: Caddy installation directory exists
   file:
     path: /opt/caddy_v0.10.4
     state: directory
 
-- name: Package is extracted
+- name: Caddy is installed
   unarchive:
     src: caddy_v0.10.4_linux_amd64.tar.gz
     dest: /opt/caddy_v0.10.4
     creates: /opt/caddy_v0.10.4/caddy
 
-- name: Executable symbolic link exists
+- name: Caddy symbolic link exists
   file:
     src: /opt/caddy_v0.10.4/caddy
     dest: /usr/local/bin/caddy
     state: link
 
-- name: Service is installed
+- name: Caddy service is installed
   template:
     src: caddy.service
     dest: /lib/systemd/system/caddy.service
@@ -25,18 +25,18 @@
 
 - meta: flush_handlers
 
-- name: Certificates directory exists
+- name: Caddy certificates directory exists
   file:
     path: /etc/ssl/caddy
     state: directory
     mode: 0700
 
-- name: Configuration directory exists
+- name: Caddy configuration directory exists
   file:
     path: /etc/caddy
     state: directory
 
-- name: Configuration is installed
+- name: Caddy configuration is installed
   template:
     src: Caddyfile
     dest: /etc/caddy/Caddyfile
@@ -44,7 +44,7 @@
 
 - meta: flush_handlers
 
-- name: Service is started and enabled
+- name: Caddy service is started and enabled
   service:
     name: caddy
     state: started

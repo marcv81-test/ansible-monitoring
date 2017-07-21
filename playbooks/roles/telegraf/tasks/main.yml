@@ -1,16 +1,16 @@
 ---
 
-- name: Package is available
+- name: Telegraf package is available
   copy:
     src: telegraf_1.3.4-1_amd64.deb
     dest: /root/telegraf_1.3.4-1_amd64.deb
 
-- name: Package is installed
+- name: Telegraf is installed
   apt:
     deb: /root/telegraf_1.3.4-1_amd64.deb
     state: present
 
-- name: Configuration is installed
+- name: Telegraf configuration is installed
   template:
     src: telegraf.conf
     dest: /etc/telegraf/telegraf.conf
@@ -18,7 +18,7 @@
 
 - meta: flush_handlers
 
-- name: Service is started and enabled
+- name: Telegraf service is started and enabled
   service:
     name: telegraf
     state: started

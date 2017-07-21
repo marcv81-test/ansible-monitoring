@@ -1,22 +1,22 @@
 ---
 
-- name: Package is available
+- name: Grafana package is available
   copy:
     src: grafana_4.4.1_amd64.deb
     dest: /root/grafana_4.4.1_amd64.deb
 
-- name: Package is installed
+- name: Grafana is installed
   apt:
     deb: /root/grafana_4.4.1_amd64.deb
     state: present
 
-- name: Configuration is installed
+- name: Grafana configuration is installed
   template:
     src: grafana.ini
     dest: /etc/grafana/grafana.ini
   notify: Reset Grafana
 
-- name: Directories for tasks exist
+- name: Grafana directories for tasks exist
   file:
     path: "{{item}}"
     state: directory
@@ -26,7 +26,7 @@
   - /root/grafana-tasks/requests
   - /root/grafana-tasks/status
 
-- name: Tasks requests are available
+- name: Grafana tasks requests are available
   template:
     src: requests/{{item}}.json
     dest: /root/grafana-tasks/requests/{{item}}.json
@@ -42,7 +42,7 @@
 
 - meta: flush_handlers
 
-- name: Service is started and enabled
+- name: Grafana service is started and enabled
   service:
     name: grafana-server
     state: started
@@ -52,7 +52,7 @@
   wait_for:
     port: 3000
 
-- name: Datasource, dashboards, and users are configured
+- name: Grafana datasource, dashboards, and users are configured
   shell: >
     curl
     -X {{item.method}} http://localhost:3000/{{item.endpoint}}

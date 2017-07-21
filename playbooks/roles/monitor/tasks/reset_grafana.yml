@@ -1,16 +1,16 @@
 ---
 
-- name: Service is stopped
+- name: Grafana service is stopped
   service:
     name: grafana-server
     state: stopped
 
-- name: Settings are reset
+- name: Grafana settings are reset
   file:
     path: /var/lib/grafana/grafana.db
     state: absent
 
-- name: Tasks are reset
+- name: Grafana tasks are reset
   shell: rm -f /root/grafana-tasks/status/*.done
   args:
     warn: no
