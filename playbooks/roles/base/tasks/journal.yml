@@ -1,0 +1,33 @@
+---
+
+- name: Journald configuration is installed
+  template:
+    src: journald.conf
+    dest: /etc/systemd/journald.conf
+  notify: Restart journald
+
+- meta: flush_handlers
+
+- name: Rsyslog is not installed
+  apt:
+    name: rsyslog
+    state: absent
+    purge: yes
+
+- name: Rsyslog logs do not exist
+  shell: rm -f {{item}} {{item}}.*
+  changed_when: false
+  with_items:
+  - /var/log/syslog
+  - /var/log/mail.info
+  - /var/log/mail.warn
+  - /var/log/mail.err
+  - /var/log/mail.log
+  - /var/log/daemon.log
+  - /var/log/kern.log
+  - /var/log/auth.log
+  - /var/log/user.log
+  - /var/log/lpr.log
+  - /var/log/cron.log
+  - /var/log/debug
+  - /var/log/messages

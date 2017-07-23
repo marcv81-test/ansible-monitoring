@@ -1,5 +1,7 @@
 ---
 
+- include: journal.yml
+
 - name: Packages list is up to date
   apt:
     update_cache: yes

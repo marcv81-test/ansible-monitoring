@@ -1,3 +1,3 @@
 # base
 
-Provides common utilities.
+Provides common utilities, configures journald.
