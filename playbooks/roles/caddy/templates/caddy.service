@@ -6,8 +6,13 @@ Wants=network-online.target
 
 [Service]
 Restart=on-failure
-StartLimitInterval=86400
-StartLimitBurst=5
+
+; Limit the start rate to 3 per 30 seconds (manual or auto)
+; Do not auto-restart more than once every 5 seconds
+; Stop auto-restart attempts if we hit the start rate limit
+StartLimitInterval=30
+StartLimitBurst=3
+RestartSec=5
 
 ; User and group the process will run as.
 User=www-data
