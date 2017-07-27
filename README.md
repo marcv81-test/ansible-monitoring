@@ -1,5 +1,5 @@
 # Setup
 
-    ansible-playbook -i localhost playbooks/download.yml
+    ansible-playbook -i localhost download.yml
     vagrant up
-    ansible-playbook -i environments/vagrant.py playbooks/site.yml
+    ansible-playbook -i environments/vagrant.py site.yml
