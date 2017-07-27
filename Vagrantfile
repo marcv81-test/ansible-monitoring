@@ -2,7 +2,7 @@ VAGRANTFILE_VERSION = "2"
 
 require 'yaml'
 
-env_filename = 'environments/vagrant.yml'
+env_filename = 'inventories/vagrant/hosts.yml'
 
 # Tentatively load environment
 begin

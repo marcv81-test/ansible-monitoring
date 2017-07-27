@@ -4,7 +4,7 @@ import sys
 import yaml
 import json
 
-env_filename = 'environments/vagrant.yml'
+env_filename = 'inventories/vagrant/hosts.yml'
 
 # Tentatively load environment
 try:

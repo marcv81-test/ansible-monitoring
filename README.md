@@ -8,9 +8,9 @@
 
 ## Download packages
 
-    ansible-playbook -i localhost download.yml
+    ansible-playbook -i inventories/localhost download.yml
 
 ## Provision Vagrant environment
 
     vagrant up
-    ansible-playbook -i environments/vagrant.py site.yml
+    ansible-playbook -i inventories/vagrant site.yml

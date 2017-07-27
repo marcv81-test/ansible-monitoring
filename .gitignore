@@ -1,7 +1,6 @@
 /.vscode/
 /.vagrant/
-/environments/production
-/group_vars/production
 /venv/
 *.pyc
 *.retry
+/inventories/production/
