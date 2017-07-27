@@ -28,9 +28,9 @@
     command: wget {{item.url}} -O {{item.dest}}
     args:
       creates: "{{item.dest}}"
-    with_items: downloads
+    with_items: "{{downloads}}"
 
   - name: Packages integrity is verified
     shell: sha256sum {{item.dest}} | cut -c-64 | grep {{item.sha256}}
-    with_items: downloads
+    with_items: "{{downloads}}"
     changed_when: false
