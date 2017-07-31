@@ -1,3 +1,15 @@
+{% if 'website' in group_names %}
+{% for vhost in website_vhosts %}
+https://{{vhost.domain}} {
+    tls {{ caddy_email }}
+{% if 'vagrant' in group_names %}
+    tls self_signed
+{% endif %}
+    root /opt/www/{{vhost.id}}
+}
+{% endfor %}
+{% endif %}
+
 {% if 'monitor' in group_names %}
 https://influxdb.{{inventory_hostname}} {
     tls {{ caddy_email }}

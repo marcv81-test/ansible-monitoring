@@ -19,3 +19,8 @@
   gather_facts: no
   roles:
   - telegraf
+
+- hosts: website
+  gather_facts: no
+  roles:
+  - website

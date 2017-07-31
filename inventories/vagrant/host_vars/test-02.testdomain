@@ -1,0 +1,4 @@
+---
+
+website_vhosts:
+- { id: site-1, domain: test-site-1, src: test-sites/site-1 }

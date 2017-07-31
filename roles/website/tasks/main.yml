@@ -1,0 +1,16 @@
+---
+
+- name: Websites directory exists
+  file:
+    path: /opt/www
+    owner: www-data
+    group: www-data
+    state: directory
+
+- name: Websites are installed
+  synchronize:
+    src: "{{item.src}}"
+    dest: /opt/www
+    recursive: yes
+    delete: yes
+  with_items: "{{website_vhosts}}"
