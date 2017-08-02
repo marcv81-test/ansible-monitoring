@@ -1,0 +1,32 @@
+---
+
+- name: Fake certificate generator is installed
+  copy:
+    src: cert-bootstrap
+    dest: /usr/sbin/cert-bootstrap
+    mode: 0755
+
+- name: Fake certificate exists
+  command: cert-bootstrap
+  args:
+    creates: /etc/ssl/private/bootstrap/fullchain.pem
+
+- block:
+
+  - name: Check for monitor certificates
+    stat:
+      path: /etc/ssl/private/{{item}}.{{inventory_hostname}}
+    with_items:
+    - influxdb
+    - grafana
+    register: stats
+
+  - name: Monitor certificates are available
+    file:
+      src: /etc/ssl/private/bootstrap
+      dest: "{{item.invocation.module_args.path}}"
+      state: link
+    with_items: "{{stats.results}}"
+    when: not item.stat.exists
+
+  when: "'monitor' in group_names"

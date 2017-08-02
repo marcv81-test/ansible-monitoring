@@ -6,9 +6,9 @@
   vars:
     downloads:
 
-    - url: https://github.com/mholt/caddy/releases/download/v0.10.4/caddy_v0.10.4_linux_amd64.tar.gz
-      sha256: eaf0be061c4f260eab6b181728457852afc9c53c12c0b6ce9dd130bb4c790917
-      dest: roles/caddy/files/caddy_v0.10.4_linux_amd64.tar.gz
+    - url: http://nginx.org/packages/debian/pool/nginx/n/nginx/nginx_1.12.1-1~stretch_amd64.deb
+      sha256: 58d6f6d8cbfc3fe16151b9269730df358a6b753d8e051915144a79ec4b7628ab
+      dest: roles/nginx/files/nginx_1.12.1-1~stretch_amd64.deb
 
     - url: https://s3-us-west-2.amazonaws.com/grafana-releases/release/grafana_4.4.1_amd64.deb
       sha256: f11ed0ad94a63be108df903ea32a8c2f199bfb87e3c6de26ce3101d3167ed5dd

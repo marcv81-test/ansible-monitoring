@@ -1,0 +1,28 @@
+---
+
+- block:
+
+  - name: Monitor LE certificates exist
+    command: certbot certonly --domain {{item}}.{{inventory_hostname}}
+    args:
+      creates: /etc/letsencrypt/live/{{item}}.{{inventory_hostname}}
+    become: yes
+    become_user: certbot
+    with_items:
+    - influxdb
+    - grafana
+    notify: Reload Nginx
+
+  - name: Monitor LE certificates are available
+    file:
+      src: /etc/letsencrypt/live/{{item}}.{{inventory_hostname}}
+      dest: /etc/ssl/private/{{item}}.{{inventory_hostname}}
+      state: link
+    with_items:
+    - influxdb
+    - grafana
+    notify: Reload Nginx
+
+  when: "'monitor' in group_names"
+
+- meta: flush_handlers

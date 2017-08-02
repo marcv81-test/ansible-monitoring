@@ -1,0 +1,60 @@
+---
+
+- name: Certbot group exists
+  group:
+    name: certbot
+    state: present
+
+- name: Certbot user exists
+  user:
+    name: certbot
+    group: certbot
+    shell: /bin/bash
+
+- name: Certbot directories exist
+  file:
+    path: "{{item}}"
+    state: directory
+    owner: certbot
+    group: certbot
+  with_items:
+  - /etc/letsencrypt
+  - /var/lib/letsencrypt
+  - /var/log/letsencrypt
+  - /var/www/html
+
+- name: Packages list is up to date
+  apt:
+    update_cache: yes
+    cache_valid_time: 3600
+
+- name: Certbot library is installed
+  apt:
+    name: python-certbot=0.10.2-1
+    state: present
+    install_recommends: no
+
+- name: Certbot official client is *not* installed
+  apt:
+    name: certbot
+    state: absent
+    purge: yes
+
+- name: Certbot binary is installed
+  copy:
+    src: certbot
+    dest: /usr/bin/certbot
+    mode: 0755
+
+- name: Certbot configuration is installed
+  template:
+    src: cli.ini
+    dest: /etc/letsencrypt/cli.ini
+
+- name: Certbot renewal is scheduled
+  cron:
+    name: certbot renew
+    minute: 15
+    hour: 6,18
+    user: certbot
+    job: /usr/bin/certbot renew

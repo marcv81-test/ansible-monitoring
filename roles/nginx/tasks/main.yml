@@ -1,0 +1,10 @@
+---
+
+- include: certbot.yml
+
+- include: bootstrap.yml
+
+- include: nginx.yml
+
+- include: letsencrypt.yml
+  when: "'vagrant' not in group_names"

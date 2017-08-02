@@ -1,0 +1,36 @@
+#!/usr/bin/python2
+
+import OpenSSL.crypto
+import os
+
+OUTDIR = '/etc/ssl/private/bootstrap'
+
+# Create output directory
+try: os.makedirs(OUTDIR)
+except OSError: pass
+
+# Create key
+key = OpenSSL.crypto.PKey()
+key.generate_key(OpenSSL.crypto.TYPE_RSA, 2048)
+
+# Create certificate
+cert = OpenSSL.crypto.X509()
+subj = cert.get_subject()
+subj.CN = 'Fake certificate'
+cert.set_serial_number(0)
+cert.set_notBefore('20010101000000Z')
+cert.set_notAfter('20010101000000Z')
+cert.set_issuer(subj)
+cert.set_version(2)
+cert.set_pubkey(key)
+cert.sign(key, 'sha256')
+
+# Dump key
+with open(OUTDIR + '/privkey.pem', 'wt') as cert_file:
+    cert_file.write(OpenSSL.crypto.dump_privatekey(
+        OpenSSL.crypto.FILETYPE_PEM, key))
+
+# Dump certificate
+with open(OUTDIR + '/fullchain.pem', 'wt') as key_file:
+    key_file.write(OpenSSL.crypto.dump_certificate(
+        OpenSSL.crypto.FILETYPE_PEM, cert))

@@ -14,5 +14,5 @@ grafana_user_password:      "iJ5¬`!\"£$%^&*()_-+={[}]:;@'~#|\\<,>.?/中"
 # Grafana  | admin    | gH4¬`!"£$%^&*()_-+={[}]:;@'~#|\<,>.?/中
 # Grafana  | grafana  | iJ5¬`!"£$%^&*()_-+={[}]:;@'~#|\<,>.?/中
 
-# Caddy configuration
-caddy_email: admin@localhost
+# Let's Encrypt configuration
+letsencrypt_email: admin@localhost
