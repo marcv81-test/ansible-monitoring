@@ -7,30 +7,27 @@
     downloads:
 
     - url: http://nginx.org/packages/debian/pool/nginx/n/nginx/nginx_1.12.1-1~stretch_amd64.deb
-      sha256: 58d6f6d8cbfc3fe16151b9269730df358a6b753d8e051915144a79ec4b7628ab
+      checksum: sha256:58d6f6d8cbfc3fe16151b9269730df358a6b753d8e051915144a79ec4b7628ab
       dest: roles/nginx/files/nginx_1.12.1-1~stretch_amd64.deb
 
     - url: https://s3-us-west-2.amazonaws.com/grafana-releases/release/grafana_4.4.1_amd64.deb
-      sha256: f11ed0ad94a63be108df903ea32a8c2f199bfb87e3c6de26ce3101d3167ed5dd
+      checksum: sha256:f11ed0ad94a63be108df903ea32a8c2f199bfb87e3c6de26ce3101d3167ed5dd
       dest: roles/monitor/files/grafana_4.4.1_amd64.deb
 
     - url: https://dl.influxdata.com/influxdb/releases/influxdb_1.3.1_amd64.deb
-      sha256: 958c95d10b2b9d798003e4231ce3faf389e54fe749b28ef7db86a8058661bef8
+      checksum: sha256:958c95d10b2b9d798003e4231ce3faf389e54fe749b28ef7db86a8058661bef8
       dest: roles/monitor/files/influxdb_1.3.1_amd64.deb
 
     - url: https://dl.influxdata.com/telegraf/releases/telegraf_1.3.4-1_amd64.deb
-      sha256: 680375f0138ccbbc5331474ca18ed90e7b8e66177ce46e4978ae955562b4328f
+      checksum: sha256:680375f0138ccbbc5331474ca18ed90e7b8e66177ce46e4978ae955562b4328f
       dest: roles/telegraf/files/telegraf_1.3.4-1_amd64.deb
 
   tasks:
 
   - name: Packages are available
-    command: wget {{item.url}} -O {{item.dest}}
-    args:
-      creates: "{{item.dest}}"
+    get_url:
+      url: "{{item.url}}"
+      dest: "{{item.dest}}"
+      checksum: "{{item.checksum}}"
+      timeout: 3600
     with_items: "{{downloads}}"
-
-  - name: Packages integrity is verified
-    shell: sha256sum {{item.dest}} | cut -c-64 | grep {{item.sha256}}
-    with_items: "{{downloads}}"
-    changed_when: false
