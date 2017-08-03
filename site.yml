@@ -1,21 +1,5 @@
 ---
 
-- hosts: all
-  gather_facts: no
-  roles:
-  - base
+- include: base.yml
 
-- hosts: vagrant
-  gather_facts: no
-  roles:
-  - hosts
-
-- hosts: monitor
-  gather_facts: no
-  roles:
-  - monitor
-
-- hosts: all
-  gather_facts: no
-  roles:
-  - telegraf
+- include: monitor.yml

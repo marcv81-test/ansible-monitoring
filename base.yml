@@ -1,0 +1,12 @@
+---
+
+- hosts: vagrant
+  gather_facts: no
+  roles:
+  - hosts
+
+- hosts: all
+  gather_facts: no
+  roles:
+  - base
+  - telegraf
