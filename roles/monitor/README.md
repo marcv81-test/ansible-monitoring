@@ -1,6 +1,6 @@
 # monitor
 
-Provides InfluxDB 1.2.4 and Grafana 4.4.1.
+Provides InfluxDB 1.3.1 and Grafana 4.4.1.
 
 Configures a database and users to store Telegraf metrics in InfluxDB.
 
