@@ -3,11 +3,11 @@
 - name: Telegraf package is available
   copy:
     src: telegraf_1.3.4-1_amd64.deb
-    dest: /root/telegraf_1.3.4-1_amd64.deb
+    dest: /root/ansible/packages/telegraf_1.3.4-1_amd64.deb
 
 - name: Telegraf is installed
   apt:
-    deb: /root/telegraf_1.3.4-1_amd64.deb
+    deb: /root/ansible/packages/telegraf_1.3.4-1_amd64.deb
     state: present
 
 - name: Telegraf configuration is installed

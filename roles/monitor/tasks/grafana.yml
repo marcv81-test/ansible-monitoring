@@ -3,11 +3,11 @@
 - name: Grafana package is available
   copy:
     src: grafana_4.4.1_amd64.deb
-    dest: /root/grafana_4.4.1_amd64.deb
+    dest: /root/ansible/packages/grafana_4.4.1_amd64.deb
 
 - name: Grafana is installed
   apt:
-    deb: /root/grafana_4.4.1_amd64.deb
+    deb: /root/ansible/packages/grafana_4.4.1_amd64.deb
     state: present
 
 - name: Grafana configuration is installed
@@ -16,20 +16,10 @@
     dest: /etc/grafana/grafana.ini
   notify: Reset Grafana
 
-- name: Grafana directories for tasks exist
-  file:
-    path: "{{item}}"
-    state: directory
-    mode: 0700
-  with_items:
-  - /root/grafana-tasks
-  - /root/grafana-tasks/requests
-  - /root/grafana-tasks/status
-
 - name: Grafana tasks requests are available
   template:
     src: requests/{{item}}.json
-    dest: /root/grafana-tasks/requests/{{item}}.json
+    dest: /root/ansible/requests/grafana-{{item}}.json
     mode: 0600
   with_items:
   - datasource
@@ -57,10 +47,10 @@
     curl
     -X {{item.method}} http://localhost:3000/{{item.endpoint}}
     --user admin:admin --header 'Content-Type: application/json'
-    --data-binary @/root/grafana-tasks/requests/{{item.name}}.json
-    --fail && touch /root/grafana-tasks/status/{{item.name}}.done
+    --data-binary @/root/ansible/requests/grafana-{{item.name}}.json
+    --fail && touch /root/ansible/states/grafana-{{item.name}}.done
   args:
-    creates: /root/grafana-tasks/status/{{item.name}}.done
+    creates: /root/ansible/states/grafana-{{item.name}}.done
   with_items:
   - { name: datasource,        endpoint: api/datasources,            method: POST  }
   - { name: dashboard-host,    endpoint: api/dashboards/db,          method: POST  }

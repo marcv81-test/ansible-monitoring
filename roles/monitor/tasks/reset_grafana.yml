@@ -11,6 +11,6 @@
     state: absent
 
 - name: Grafana tasks are reset
-  shell: rm -f /root/grafana-tasks/status/*.done
+  shell: rm -f /root/ansible/states/grafana-*
   args:
     warn: no

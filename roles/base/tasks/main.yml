@@ -19,3 +19,12 @@
 - name: Hostname is set
   hostname:
     name: "{{inventory_hostname}}"
+
+- name: Ansible directory structure exists
+  file:
+    path: "{{item}}"
+    state: directory
+  with_items:
+  - /root/ansible/packages
+  - /root/ansible/requests
+  - /root/ansible/states

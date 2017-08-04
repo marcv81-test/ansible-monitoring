@@ -3,11 +3,11 @@
 - name: Nginx package is available
   copy:
     src: nginx_1.12.1-1~stretch_amd64.deb
-    dest: /root/nginx_1.12.1-1~stretch_amd64.deb
+    dest: /root/ansible/packages/nginx_1.12.1-1~stretch_amd64.deb
 
 - name: Nginx is installed
   apt:
-    deb: /root/nginx_1.12.1-1~stretch_amd64.deb
+    deb: /root/ansible/packages/nginx_1.12.1-1~stretch_amd64.deb
     state: present
 
 - name: Nginx is started and enabled

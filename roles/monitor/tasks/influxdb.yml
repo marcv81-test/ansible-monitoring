@@ -3,18 +3,12 @@
 - name: InfluxDB package is available
   copy:
     src: influxdb_1.3.1_amd64.deb
-    dest: /root/influxdb_1.3.1_amd64.deb
+    dest: /root/ansible/packages/influxdb_1.3.1_amd64.deb
 
 - name: InfluxDB is installed
   apt:
-    deb: /root/influxdb_1.3.1_amd64.deb
+    deb: /root/ansible/packages/influxdb_1.3.1_amd64.deb
     state: present
-
-- name: InfluxDB directory for tasks status exists
-  file:
-    path: /root/influxdb-tasks
-    state: directory
-    mode: 0700
 
 - name: InfluxDB service is started and enabled
   service:
@@ -29,9 +23,9 @@
 - name: InfluxDB admin user exists
   shell: >
     influx
-    -execute {{item.query|quote}} && touch /root/influxdb-tasks/{{item.name}}.done
+    -execute {{item.query|quote}} && touch /root/ansible/states/influxdb-{{item.name}}.done
   args:
-    creates: /root/influxdb-tasks/{{item.name}}.done
+    creates: /root/ansible/states/influxdb-{{item.name}}.done
   with_items:
   - name: user-admin-create
     query: >-
@@ -55,9 +49,9 @@
   shell: >
     influx
     -username admin -password {{influxdb_admin_password|quote}}
-    -execute {{item.query|quote}} && touch /root/influxdb-tasks/{{item.name}}.done
+    -execute {{item.query|quote}} && touch /root/ansible/states/influxdb-{{item.name}}.done
   args:
-    creates: /root/influxdb-tasks/{{item.name}}.done
+    creates: /root/ansible/states/influxdb-{{item.name}}.done
   with_items:
   - name: db-telegraf-create
     query: CREATE DATABASE telegraf
