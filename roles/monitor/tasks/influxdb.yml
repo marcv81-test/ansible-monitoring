@@ -23,7 +23,8 @@
 - name: InfluxDB admin user exists
   shell: >
     influx
-    -execute {{item.query|quote}} && touch /root/ansible/states/influxdb-{{item.name}}.done
+    -execute {{item.query|quote}} &&
+    touch /root/ansible/states/influxdb-{{item.name}}.done
   args:
     creates: /root/ansible/states/influxdb-{{item.name}}.done
   with_items:
@@ -49,7 +50,8 @@
   shell: >
     influx
     -username admin -password {{influxdb_admin_password|quote}}
-    -execute {{item.query|quote}} && touch /root/ansible/states/influxdb-{{item.name}}.done
+    -execute {{item.query|quote}} &&
+    touch /root/ansible/states/influxdb-{{item.name}}.done
   args:
     creates: /root/ansible/states/influxdb-{{item.name}}.done
   with_items:

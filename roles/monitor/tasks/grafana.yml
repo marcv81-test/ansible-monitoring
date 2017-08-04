@@ -16,7 +16,7 @@
     dest: /etc/grafana/grafana.ini
   notify: Reset Grafana
 
-- name: Grafana tasks requests are available
+- name: Grafana API requests are available
   template:
     src: requests/{{item}}.json
     dest: /root/ansible/requests/grafana-{{item}}.json
@@ -42,19 +42,33 @@
   wait_for:
     port: 3000
 
-- name: Grafana datasource, dashboards, and users are configured
+- name: Grafana datasource, dashboard, and users are configured
   shell: >
     curl
     -X {{item.method}} http://localhost:3000/{{item.endpoint}}
-    --user admin:admin --header 'Content-Type: application/json'
+    --user admin:admin
+    --header 'Content-Type:application/json'
     --data-binary @/root/ansible/requests/grafana-{{item.name}}.json
-    --fail && touch /root/ansible/states/grafana-{{item.name}}.done
+    --fail &&
+    touch /root/ansible/states/grafana-{{item.name}}.done
   args:
     creates: /root/ansible/states/grafana-{{item.name}}.done
   with_items:
-  - { name: datasource,        endpoint: api/datasources,            method: POST  }
-  - { name: dashboard-host,    endpoint: api/dashboards/db,          method: POST  }
-  - { name: user-organisation, endpoint: api/orgs/1,                 method: PUT   }
-  - { name: user-account,      endpoint: api/admin/users,            method: POST  }
-  - { name: user-role,         endpoint: api/orgs/1/users/2,         method: PATCH }
-  - { name: admin-password,    endpoint: api/admin/users/1/password, method: PUT   }
+  - name: datasource
+    endpoint: api/datasources
+    method: POST
+  - name: dashboard-host
+    endpoint: api/dashboards/db
+    method: POST
+  - name: user-organisation
+    endpoint: api/orgs/1
+    method: PUT
+  - name: user-account
+    endpoint: api/admin/users
+    method: POST
+  - name: user-role
+    endpoint: api/orgs/1/users/2
+    method: PATCH
+  - name: admin-password
+    endpoint: api/admin/users/1/password
+    method: PUT
