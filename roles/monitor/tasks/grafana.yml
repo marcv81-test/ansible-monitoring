@@ -1,14 +1,33 @@
 ---
 
-- name: Grafana package is available
+- name: Grafana packages are available
   copy:
-    src: grafana_4.4.1_amd64.deb
-    dest: /root/ansible/packages/grafana_4.4.1_amd64.deb
+    src: "{{item}}"
+    dest: /root/ansible/packages/{{item}}
+  with_items:
+  - grafana_4.4.1_amd64.deb
+  - grafana-piechart-panel-11b21df.zip
 
 - name: Grafana is installed
   apt:
     deb: /root/ansible/packages/grafana_4.4.1_amd64.deb
     state: present
+
+- name: Grafana plugins directory exists
+  file:
+    path: /var/lib/grafana/plugins
+    state: directory
+    owner: grafana
+    group: grafana
+
+- name: Grafana plugins are installed
+  unarchive:
+    src: /root/ansible/packages/{{item}}
+    dest: /var/lib/grafana/plugins
+    remote_src: yes
+  with_items:
+  - grafana-piechart-panel-11b21df.zip
+  notify: Reset Grafana
 
 - name: Grafana configuration is installed
   template:
