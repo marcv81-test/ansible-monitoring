@@ -1,7 +1,7 @@
 {
     "name":"Grafana",
     "login":"grafana",
-    "password":"{{ grafana_user_password | escape_json }}",
+    "password":"grafana",
     "email":"grafana@localhost",
     "isAdmin":false
 }

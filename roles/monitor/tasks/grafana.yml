@@ -46,7 +46,6 @@
   - user-organisation
   - user-account
   - user-role
-  - admin-password
   notify: Reset Grafana
 
 - meta: flush_handlers
@@ -88,6 +87,3 @@
   - name: user-role
     endpoint: api/orgs/1/users/2
     method: PATCH
-  - name: admin-password
-    endpoint: api/admin/users/1/password
-    method: PUT

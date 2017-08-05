@@ -31,6 +31,24 @@
     dest: /etc/nginx/conf.d/site.conf
   notify: Reload Nginx
 
+- block:
+
+  - name: Nginx Grafana password is computed
+    command: openssl passwd --salt aA -apr1 {{item|quote}}
+    with_items:
+    - "{{grafana_admin_password}}"
+    - "{{grafana_user_password}}"
+    register: htpasswd
+    changed_when: false
+
+  - name: Nginx Grafana password is installed
+    template:
+      src: grafana_htpasswd
+      dest: /etc/nginx/grafana_htpasswd
+    notify: Reload Nginx
+
+  when: "'monitor' in group_names"
+
 - meta: flush_handlers
 
 - name: Nginx reload is scheduled
