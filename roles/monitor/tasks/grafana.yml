@@ -45,7 +45,6 @@
   - dashboard-host
   - user-organisation
   - user-account
-  - user-role
   notify: Reset Grafana
 
 - meta: flush_handlers
@@ -84,6 +83,3 @@
   - name: user-account
     endpoint: api/admin/users
     method: POST
-  - name: user-role
-    endpoint: api/orgs/1/users/2
-    method: PATCH
